@@ -11,6 +11,10 @@
 /* Define if you have the ANSI C header files.  */
 #define STDC_HEADERS 1
 
+/* Define if you have the <unistd.h> header file.  */
+#undef HAVE_UNISTD_H
+/* #define HAVE_UNISTD_H 1 */
+
 /* Define if you have the <malloc.h> header file.  */
 #define HAVE_MALLOC_H 1
 

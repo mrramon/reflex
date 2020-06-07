@@ -11,14 +11,14 @@
 #
 
 
-SKELFLAGS = -DDEFAULT_SKELETON_FILE=\"c:/src/flex/flex.skl\"
-CFLAGS = -nologo -W2 -F 8000 -Ox -DUSG
-LDFLAGS = /nologo /BATCH /STACK:8000
+SKELFLAGS = -DDEFAULT_SKELETON_FILE=\"flex.skl\"
+CFLAGS = -nologo -W2 -F 8000 -Ox -DUSG -DYY_NO_UNISTD_H -IMISC\NT
+LDFLAGS = /nologo /STACK:8000
 FLEX_FLAGS = -ist8 -Sflex.skl
 
-FLEX = .\flex.exe
+FLEX = flex
 CC = cl
-YACC = c:\lib\byacc
+YACC = byacc
 MAKE = nmake /nologo
 
 FLEXOBJS = \
@@ -51,7 +51,7 @@ FLEX_C_SOURCES = \
         tblcmp.c \
         yylex.c
 
-all : flex.exe 
+all : flex.exe
 
 flex.exe : $(FLEXOBJS)
         link $(LDFLAGS) $(FLEXOBJS) -out:$*.exe
@@ -59,8 +59,8 @@ flex.exe : $(FLEXOBJS)
 f_flex:
         copy initscan.c scan.c
         touch scan.c
-        @echo  compiling first flex  
-        $(MAKE) flex.exe 
+        @echo  compiling first flex
+        $(MAKE) flex.exe
         del scan.c
         @echo using first flex to generate final version...
         $(MAKE) flex.exe
@@ -73,8 +73,8 @@ f_flex:
 
 parse.h parse.c : parse.y
         $(YACC) -d parse.y
-        @move y_tab.c parse.c
-        @move y_tab.h parse.h
+        @move y.tab.c parse.c
+        @move y.tab.h parse.h
 
 scan.c : scan.l
         $(FLEX) $(FLEX_FLAGS) $(COMPRESSION) scan.l >scan.c
